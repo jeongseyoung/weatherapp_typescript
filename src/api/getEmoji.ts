@@ -8,3 +8,4 @@ export function getEmoji(id: number) {
   else if (id >= 801 && id < 810) return "☁️";
   else return "❓";
 }
+// ⬅️➡️

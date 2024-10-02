@@ -1,11 +1,11 @@
 //import { key } from "key/apiKey";
-import { openweatherkey } from "utils/keys/config";
+import { onecallAPIkey, openweatherkey } from "utils/keys/config";
 import { getLatLon } from "./getCity";
 //import { WeatherData } from "interface";
 
+let lat: string = "";
+let lon: string = "";
 export const getWeatherData = async (city: string) => {
-  let lat: string = "";
-  let lon: string = "";
   try {
     //도시 정보 가져오기
     await getLatLon(city).then((result) => {
@@ -29,10 +29,9 @@ export const getForecastData = async (city: string) => {
 };
 
 //오늘 최소,최대 기온
-// export const getOneCallApiData = async (city: string) => {
-//   console.log("??", city);
-//   const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${key}`;
-//   const result = await fetch(url).then((response) => response.json());
-//   console.log(result);
-//   return result;
-// };
+export const getOneCallApiData = async (city: string) => {
+  const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${openweatherkey}`;
+  const result = await fetch(url).then((response) => response.json());
+  console.log("onecall", result);
+  return result;
+};

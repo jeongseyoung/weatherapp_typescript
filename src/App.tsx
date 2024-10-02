@@ -5,7 +5,7 @@ import "./App.css";
 import Chart from "layout/datachart/chart";
 
 function App() {
-  return <Chart />; //<Front />;
+  return <Front />; //<Chart />;
 }
 
 export default App;

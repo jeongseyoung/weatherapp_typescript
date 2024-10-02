@@ -1,3 +1,3 @@
-import WeatherData from "./weatherData";
-
-export type { WeatherData };
+import { WeatherData } from "./weatherData";
+import { OneCallData } from "./oneCallData";
+export type { WeatherData, OneCallData };

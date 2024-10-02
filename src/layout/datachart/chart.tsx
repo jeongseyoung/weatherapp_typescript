@@ -1,33 +1,28 @@
-import { WeatherData } from "interface";
 import "./style.css";
-import { useEffect } from "react";
 import { Bar, Line, Scatter } from "react-chartjs-2";
 import "chart.js/auto";
 import { ChartData, ChartOptions, Colors } from "chart.js";
-import { determineAxis } from "chart.js/dist/core/core.config";
+import { Main } from "interface/weatherData";
 //props: WeatherData
-export default function Chart() {
-  //const { name, coord, main, sys, weather, wind } = props;
-  const temp = [18, 16, 17, 19, 22, 27, 25, 22];
-  const labels = [
-    "00시",
-    "03시",
-    "06시",
-    "09시",
-    "12시",
-    "15시",
-    "18시",
-    "21시",
-  ];
+export default function TempChart({ main }: { main: Main }) {
+  const { temp, dailytemp, humidity, day } = main;
+
+  const t: number[] = [];
+  dailytemp?.map((m) => t.push(m));
+
+  // label 세팅
+  const labels: string[] = [];
+  day?.map((m) => labels.push(m + "시"));
+
   const data: ChartData<"line", number[], string> = {
     labels,
     datasets: [
       {
-        label: "기온",
+        //label: NONAME,
         borderColor: "black",
         borderWidth: 2,
         borderJoinStyle: "bevel",
-        data: temp.map((t) => t),
+        data: dailytemp ? dailytemp.map((t) => t) : [],
       },
     ],
   };
@@ -40,10 +35,16 @@ export default function Chart() {
         },
       },
       y: {
-        min: 10,
-        max: 30,
+        min: Math.min(...t) - 5,
+        max: Math.max(...t) + 5,
         ticks: {
           stepSize: 10,
+          font: {
+            weight: 800,
+          },
+          callback: function (temp) {
+            return temp + "℃";
+          },
         },
       },
     },

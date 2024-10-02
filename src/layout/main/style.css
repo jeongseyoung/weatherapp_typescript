@@ -175,3 +175,11 @@ p {
 .windyRightArrow:hover {
   cursor: pointer;
 }
+
+.tempGraphBox {
+  width: 500px;
+  height: 250px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.5);
+}

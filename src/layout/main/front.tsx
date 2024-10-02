@@ -1,24 +1,32 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import "./style.css";
-import { getForecastData, getWeatherData } from "api/getWeather";
+import {
+  getForecastData,
+  getOneCallApiData,
+  getWeatherData,
+} from "api/getWeather";
 import { getEmoji } from "api";
 import { getWindy } from "api/getMap";
 import { calEmoji } from "utils/calculateEmoji";
-import { WeatherData } from "interface";
+import { OneCallData, WeatherData } from "interface";
+import TempChart from "layout/datachart/chart";
+import { Main } from "interface/weatherData";
+import { dailyData } from "utils/calculateDailyData";
 export default function Front() {
   const [myStyle, setMyStyle] = useState<boolean>(false);
-
+  const [tempGraphBox, setTempGraphBox] = useState<boolean>(true);
   const [city, setCity] = useState<string>("");
-
+  const [graphData, setGraphData] = useState<Main>();
   // 날씨 데이터(json) 저장
   const [result, setResult] = useState<WeatherData>();
   const [ForecastResult, setForecastResult] = useState<any>("");
   // 화면에 보여줄 예보 데이터
   const [forecast, setForecast] = useState<number[][]>([]);
+  // onecalldata
+  const [oneCallData, setOneCallData] = useState<OneCallData>();
 
   const handleInputCity = (event: ChangeEvent<HTMLInputElement>) => {
     setCity(event.target.value);
-    console.log("event.target.value", city);
   };
   const n = new Date();
   const [now, setNow] = useState<any>(n.toDateString());
@@ -28,23 +36,28 @@ export default function Front() {
 
   const getWeather = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const getData = await getWeatherData(city);
     const getForecast = await getForecastData(city);
-    if (getData && getForecast) {
+    const getOneCall = await getOneCallApiData(city);
+
+    if (getData && getForecast && getOneCall) {
       setResult(getData);
       setForecastResult(getForecast);
+      setOneCallData(getOneCall);
     }
   };
 
   const [weatherData, setWeatherData] = useState({
     name: "",
-    temp: "",
-    humidity: "",
+    temp: 0,
+    humidity: 0,
     description: "",
     id: 0,
     speed: "",
     sunriseDate: "",
     sunsetDate: "",
+    dailyTemp: [0],
     // lat: undefined as number | undefined,
     // lon: undefined as number | undefined,
   });
@@ -53,6 +66,7 @@ export default function Front() {
   useEffect(() => {
     if (result && ForecastResult) {
       console.log("result", result);
+      console.log("ForecastResult", ForecastResult);
 
       const {
         name,
@@ -62,27 +76,46 @@ export default function Front() {
         wind: { speed },
         sys: { sunrise, sunset },
       } = result;
-
       const { list } = ForecastResult;
-
+      // 데일리 기온list
+      const dailyTemp: number[] = [];
+      const dailyDay: number[] = [];
+      const n = [0, 3, 6, 9, 12, 15, 18, 21];
+      for (let i = 0; i <= 47; i++) {
+        if (n.includes(i)) {
+          dailyTemp.push(
+            Math.floor(Number(oneCallData?.hourly[i].temp) - 273.15)
+          );
+          dailyDay.push(
+            new Date(Number(oneCallData?.hourly[i].dt) * 1000).getHours()
+          );
+        }
+      }
+      setGraphData({
+        temp: Math.floor(temp),
+        dailytemp: dailyTemp,
+        humidity,
+        day: dailyDay,
+      });
       // 이모티콘ID 계산
       const tempForecast = calEmoji(list);
       setForecast(tempForecast);
 
+      //일출, 일몰
       const rise = new Date(sunrise * 1000);
       const set = new Date(sunset * 1000);
 
       setWeatherData({
         name,
-        temp: Math.floor(temp).toString(),
-        humidity: humidity,
+        temp: Math.floor(temp),
+        humidity,
         description,
         id,
         speed: speed.toString(),
         sunriseDate: rise.toLocaleTimeString(),
         sunsetDate: set.toLocaleTimeString(),
+        dailyTemp: dailyTemp,
       });
-
       setMyStyle(true);
       setLat(lat);
       setLon(lon);
@@ -122,8 +155,16 @@ export default function Front() {
               일출 : {weatherData.sunriseDate} / 일몰 : {weatherData.sunsetDate}
             </p>
             <p className="weatherEmoji">{getEmoji(weatherData.id)}</p>
+            <div className="tempGraphBox">
+              {graphData && <TempChart main={graphData} />}
+            </div>
           </>
         )}
+        {/* {tempGraphBox && (
+          <div className="tempGraphBox">
+            <TempChart />
+          </div>
+        )} */}
       </div>
       <div className="forecastBox">
         {forecast.map((m, i) => (

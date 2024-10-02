@@ -1,8 +1,10 @@
 .graphBox {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 
-  width: 500px;
-  height: 500px;
+  width: 100%; /* 부모 요소의 너비에 맞게 설정 */
+  height: 400px; /* 원하는 높이로 설정 */
+  max-width: 600px; /* 최대 너비를 제한할 수 있음 (선택 사항) */
+  margin: 0 auto; /* 가운데 정렬 */
 }

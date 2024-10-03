@@ -17,6 +17,7 @@ export default function Front() {
   const [tempGraphBox, setTempGraphBox] = useState<boolean>(true);
   const [city, setCity] = useState<string>("");
   const [graphData, setGraphData] = useState<Main>();
+
   // 날씨 데이터(json) 저장
   const [result, setResult] = useState<WeatherData>();
   const [ForecastResult, setForecastResult] = useState<any>("");
@@ -77,6 +78,7 @@ export default function Front() {
         sys: { sunrise, sunset },
       } = result;
       const { list } = ForecastResult;
+
       // 데일리 기온list
       const dailyTemp: number[] = [];
       const dailyDay: number[] = [];

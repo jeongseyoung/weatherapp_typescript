@@ -11,5 +11,5 @@ export const getLatLon = async (city: string) => {
     }
   } catch {
     console.log("getCity error");
-  }
+  }  
 };

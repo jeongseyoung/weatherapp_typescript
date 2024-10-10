@@ -13,7 +13,7 @@ export interface WeatherData {
   name: string;
   cod: number;
 }
-
+ 
 export interface Clouds {
   all: number;
 }

@@ -7,7 +7,7 @@ export interface OneCallData {
   hourly: Current[];
   daily: Daily[];
 }
-
+   
 export interface Current {
   dt: number;
   sunrise?: number;

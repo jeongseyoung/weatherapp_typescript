@@ -2,4 +2,4 @@ import { getWeatherData } from "./getWeather";
 import { getEmoji } from "./getEmoji";
 import { getWindy } from "./getMap";
 
-export { getWeatherData, getEmoji, getWindy };
+export { getWeatherData, getEmoji, getWindy }; 

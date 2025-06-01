@@ -7,5 +7,5 @@ import Chart from "layout/datachart/chart";
 function App() {
   return <Front />; //<Chart />;
 }
-
+    
 export default App;

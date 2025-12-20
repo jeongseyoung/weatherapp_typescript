@@ -6,7 +6,7 @@ export interface OneCallData {
   current: Current;
   hourly: Current[];
   daily: Daily[];
-}
+}      
    
 export interface Current {
   dt: number;

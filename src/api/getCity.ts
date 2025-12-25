@@ -8,7 +8,7 @@ export const getLatLon = async (city: string) => {
     if (result.length > 0) {
       const { lat, lon } = result[0];
       return { lat, lon };
-    }
+    }  
   } catch {
     console.log("getCity error");
   }  

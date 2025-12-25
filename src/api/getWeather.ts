@@ -14,7 +14,7 @@ export const getWeatherData = async (city: string) => {
         lon = result.lon;
       }
     });   
-    // 날씨 정보 가져오기
+    // 날씨 정보 가져오기  
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openweatherkey}`;
     const result = await fetch(url).then((response) => response.json());
     return result;

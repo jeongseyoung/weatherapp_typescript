@@ -4,3 +4,4 @@ import { getWindy } from "./getMap";
 
 export { getWeatherData, getEmoji, getWindy }; 
       
+   

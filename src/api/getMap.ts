@@ -12,7 +12,7 @@ export const getWindy = async (city: string) => {
         cityLon = result.lon;
       }
     });
-  } catch {
+  } catch {   
     console.log("없는 도시");
   }
   console.log("windyAPIKey", windyAPIKey);

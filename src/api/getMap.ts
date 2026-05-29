@@ -11,7 +11,7 @@ export const getWindy = async (city: string) => {
         cityLat = result.lat;
         cityLon = result.lon;
       }
-    });
+    });      
   } catch {   
     console.log("없는 도시");
   }

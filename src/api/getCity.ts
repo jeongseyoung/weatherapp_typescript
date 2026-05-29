@@ -1,6 +1,6 @@
 //import { key } from "key/apiKey";
 import { openweatherkey } from "utils/keys/config";
-
+    
 export const getLatLon = async (city: string) => {
   const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${openweatherkey}`;
   try {

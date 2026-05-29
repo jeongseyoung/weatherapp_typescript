@@ -5,7 +5,7 @@ import { getLatLon } from "./getCity";
 
 let lat: string = "";
 let lon: string = "";
-export const getWeatherData = async (city: string) => {
+export const getWeatherData = async (city: string) => {       
   try {
     //도시 정보 가져오기
     await getLatLon(city).then((result) => {

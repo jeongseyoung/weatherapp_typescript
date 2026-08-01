@@ -5,7 +5,7 @@ export function dailyData(oneCallData: OneCallData | undefined) {
     console.error("Invalid oneCallData provided.");
     return { dailyTemp: [], dailyDay: [] }; // Return empty arrays if invalid
   }
-  // 데일리 기온list
+  // 데일리 기온list// 데일리 기온list
   const dailyTemp: number[] = [];
   const dailyDay: number[] = [];
   const n = [0, 3, 6, 9, 12, 15, 18, 21];

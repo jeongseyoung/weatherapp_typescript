@@ -6,7 +6,7 @@ export function calEmoji(list: any) {
     let t: number[] = [];
     let emojiId: number[] = [];
     const day = list[z].dt_txt.slice(8, 10) + "일";
-
+// 데일리 기온list// 데일리 기온list
     for (let j = 1; j <= 8; j++) {
       t.push(list[z].main.temp);
       emojiId.push(list[z].weather[0].id);

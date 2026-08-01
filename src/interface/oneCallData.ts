@@ -7,7 +7,7 @@ export interface OneCallData {
   hourly: Current[];
   daily: Daily[];
 }      
-   
+   // 데일리 기온list
 export interface Current {
   dt: number;
   sunrise?: number;

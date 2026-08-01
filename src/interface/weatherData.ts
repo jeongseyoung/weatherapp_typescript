@@ -13,7 +13,7 @@ export interface WeatherData {
   name: string;
   cod: number;
 }
-      
+      // 데일리 기온list
 export interface Clouds {
   all: number;
 }

@@ -1,5 +1,6 @@
 export function calEmoji(list: any) {
   let z = 6;
+  let y = 6;
   const tempForecast: any[][] = [];
 
   for (let i = 0; i <= 3; i++) {
